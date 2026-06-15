@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Home Services | TurnPoint Operations</title>
+<style>
+:root {
+  --navy: #0A1F44;
+  --navy-light: #1A2F5C;
+  --brand-red: #C8102E;
+  --paper: #FFFFFF;
+  --bg: #F7F8FA;
+  --hairline: #E4E6EC;
+  --ink: #1B2533;
+  --ink-soft: #4A5567;
+  --ink-mute: #8B95A4;
+  --pos: #15803D;
+  --neg: #B91C1C;
+  --neutral: #4A5567;
+  --mono: 'SF Mono', Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+       background: var(--bg); color: var(--ink); font-size: 14px; line-height: 1.45; }
+.header { background: var(--navy); color: white; padding: 18px 24px; border-bottom: 3px solid var(--brand-red); }
+.header-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.header-title { display: flex; align-items: center; gap: 16px; }
+.header-logo { width: 44px; height: 44px; background: var(--brand-red); color: white; border-radius: 50%;
+               display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; }
+.header h1 { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+.header-meta { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+.header-actions { display: flex; gap: 12px; align-items: center; font-size: 12px; }
+.header-actions a { color: rgba(255,255,255,0.9); text-decoration: none; padding: 6px 12px; border: 1px solid rgba(255,255,255,0.25); border-radius: 4px; }
+.header-actions a:hover { background: rgba(255,255,255,0.1); }
+
+.banner { background: var(--paper); border-bottom: 1px solid var(--hairline); padding: 12px 24px; font-family: var(--mono); font-size: 11px; color: var(--ink-soft); letter-spacing: 0.04em; }
+.banner-inner { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+.refresh-pill { background: var(--bg); padding: 4px 10px; border-radius: 3px; border: 1px solid var(--hairline); }
+
+.main { max-width: 1400px; margin: 0 auto; padding: 28px 24px; }
+.section-title { font-size: 11px; font-family: var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 6px; padding-left: 8px; border-left: 3px solid var(--brand-red); }
+.section-hdr { font-size: 22px; font-weight: 600; color: var(--ink); margin-bottom: 24px; letter-spacing: -0.01em; }
+.section-sub { font-size: 13px; color: var(--ink-soft); margin-top: -16px; margin-bottom: 24px; }
+
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); margin-bottom: 32px; }
+.kpi-card { background: var(--paper); padding: 18px 18px; }
+.kpi-label { font-size: 10px; font-family: var(--mono); letter-spacing: 0.08em; color: var(--ink-mute); text-transform: uppercase; margin-bottom: 10px; }
+.kpi-val { font-size: 28px; font-weight: 600; color: var(--ink); letter-spacing: -0.02em; }
+.kpi-delta { font-size: 12px; font-family: var(--mono); margin-top: 8px; }
+.kpi-delta.pos { color: var(--pos); }
+.kpi-delta.neg { color: var(--neg); }
+.kpi-delta.neutral { color: var(--neutral); }
+.kpi-note { font-size: 11px; color: var(--ink-mute); margin-top: 6px; }
+
+.panel { background: var(--paper); border: 1px solid var(--hairline); margin-bottom: 24px; }
+.panel-hdr { padding: 14px 18px; border-bottom: 1px solid var(--hairline); display: flex; justify-content: space-between; align-items: baseline; }
+.panel-title { font-size: 14px; font-weight: 600; color: var(--ink); }
+.panel-meta { font-size: 11px; font-family: var(--mono); color: var(--ink-mute); }
+.panel-body { padding: 18px; }
+
+.bar-list { list-style: none; }
+.bar-item { display: grid; grid-template-columns: 200px 1fr 120px; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--hairline); }
+.bar-item:last-child { border-bottom: none; }
+.bar-name { font-size: 13px; color: var(--ink); }
+.bar-bar { height: 6px; background: var(--bg); border-radius: 3px; position: relative; }
+.bar-fill { height: 100%; background: var(--navy); border-radius: 3px; }
+.bar-value { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); text-align: right; }
+
+.disclosure { background: rgba(200,16,46,0.06); border-left: 3px solid var(--brand-red); padding: 12px 16px; font-size: 12px; color: var(--ink-soft); margin-bottom: 24px; }
+.disclosure strong { color: var(--ink); }
+
+table.rollup { width: 100%; border-collapse: collapse; background: var(--paper); }
+table.rollup th { background: var(--navy); color: white; padding: 11px 12px; text-align: left; font-size: 11px; font-family: var(--mono); letter-spacing: 0.05em; text-transform: uppercase; font-weight: 600; position: sticky; top: 0; }
+table.rollup th.num { text-align: right; }
+table.rollup td { padding: 11px 12px; border-bottom: 1px solid var(--hairline); font-size: 13px; }
+table.rollup td.num { text-align: right; font-family: var(--mono); font-size: 12px; }
+table.rollup td.brand a { color: var(--navy); text-decoration: none; font-weight: 500; }
+table.rollup td.brand a:hover { text-decoration: underline; color: var(--brand-red); }
+table.rollup tr:hover td { background: var(--bg); }
+table.rollup .yoy.pos { color: var(--pos); font-weight: 500; }
+table.rollup .yoy.neg { color: var(--neg); font-weight: 500; }
+
+.footer { max-width: 1400px; margin: 32px auto 24px; padding: 24px; font-size: 11px; color: var(--ink-mute); font-family: var(--mono); border-top: 1px solid var(--hairline); }
+.footer a { color: var(--ink-soft); }
+
+/* Login overlay */
+.login-overlay { position: fixed; inset: 0; background: var(--navy); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.login-card { background: var(--paper); border-radius: 8px; padding: 40px; width: 420px; max-width: 90%; }
+.login-card h2 { font-size: 20px; margin-bottom: 8px; color: var(--ink); }
+.login-card p { font-size: 13px; color: var(--ink-soft); margin-bottom: 24px; }
+.login-card input { width: 100%; padding: 12px; border: 1px solid var(--hairline); border-radius: 4px; font-size: 14px; margin-bottom: 12px; }
+.login-card button { width: 100%; padding: 12px; background: var(--brand-red); color: white; border: none; border-radius: 4px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.login-card .err { color: var(--neg); font-size: 12px; margin-top: 8px; min-height: 16px; }
+</style>
+</head>
+<body>
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-card">
+    <h2>A Home Services</h2>
+    <p>Operations Performance — TurnPoint HoldCo</p>
+    <input type="password" id="pwInput" placeholder="Enter password" autofocus />
+    <button id="pwBtn">Unlock Dashboard</button>
+    <div class="err" id="pwErr"></div>
+  </div>
+</div>
+
+<div class="header" style="display:none" id="appHeader">
+  <div class="header-inner">
+    <div class="header-title">
+      <div class="header-logo">AH</div>
+      <div>
+        <h1>A Home Services</h1>
+        <div class="header-meta">Operations Performance &nbsp;|&nbsp; Tier-1 polish &nbsp;|&nbsp; OH</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a href="/turnpoint/">← TurnPoint HoldCo</a>
+    </div>
+  </div>
+</div>
+
+<div class="banner" style="display:none" id="appBanner">
+  <div class="banner-inner">
+    <span>Current period: May 1-11, 2026 &nbsp;|&nbsp; vs Same window LY: May 1-11, 2025 (actual vs actual)</span>
+    <span class="refresh-pill">Refreshed June 15, 2026</span>
+  </div>
+</div>
+
+<div class="main" id="appMain" style="display:none">
+  
+
+  <div class="section-title">Operating Snapshot</div>
+  <h2 class="section-hdr">May 1-11, 2026 vs May 1-11, 2025</h2>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Revenue (period)</div>
+      <div class="kpi-val">$1.28M</div>
+      <div class="kpi-delta neg">-15.9% vs LY</div>
+      <div class="kpi-note">LY: $1.52M</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Jobs total</div>
+      <div class="kpi-val">1,885</div>
+      <div class="kpi-delta neg">-1.9% vs LY</div>
+      <div class="kpi-note">Completed: 1,885</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Gross margin %</div>
+      <div class="kpi-val">65.7%</div>
+      <div class="kpi-delta neg">GM $: -11.8% vs LY</div>
+      <div class="kpi-note">GM $: $841K</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Avg ticket</div>
+      <div class="kpi-val">$679</div>
+      <div class="kpi-delta neutral">per completed job</div>
+      <div class="kpi-note">1,885 completed</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Tech utilization</div>
+      <div class="kpi-val">85.4%</div>
+      <div class="kpi-delta neutral">hours worked / paid time</div>
+      <div class="kpi-note">4,433 / 5,191 hrs</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Member attach</div>
+      <div class="kpi-val">100.0%</div>
+      <div class="kpi-delta neutral">of completed jobs</div>
+      <div class="kpi-note">1,885 of 1,885</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-hdr"><div class="panel-title">Top markets by jobs (current period)</div><div class="panel-meta">OH</div></div>
+    <div class="panel-body"><ul class="bar-list"><li class="bar-item"><div class="bar-name">Cincinnati</div><div class="bar-bar"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">908 jobs</div></li><li class="bar-item"><div class="bar-name">Dayton</div><div class="bar-bar"><div class="bar-fill" style="width:8%"></div></div><div class="bar-value">69 jobs</div></li><li class="bar-item"><div class="bar-name">Mason</div><div class="bar-bar"><div class="bar-fill" style="width:7%"></div></div><div class="bar-value">66 jobs</div></li><li class="bar-item"><div class="bar-name">West Chester Township</div><div class="bar-bar"><div class="bar-fill" style="width:7%"></div></div><div class="bar-value">65 jobs</div></li><li class="bar-item"><div class="bar-name">Loveland</div><div class="bar-bar"><div class="bar-fill" style="width:7%"></div></div><div class="bar-value">62 jobs</div></li></ul></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-hdr"><div class="panel-title">Top job types by revenue (current period)</div></div>
+    <div class="panel-body"><ul class="bar-list"><li class="bar-item"><div class="bar-name">HVAC Install Replacement</div><div class="bar-bar"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">$518K (40 jobs)</div></li><li class="bar-item"><div class="bar-name">Return Service Visit - Complete Repairs</div><div class="bar-bar"><div class="bar-fill" style="width:39%"></div></div><div class="bar-value">$204K (167 jobs)</div></li><li class="bar-item"><div class="bar-name">ELEC Install Generator</div><div class="bar-bar"><div class="bar-fill" style="width:14%"></div></div><div class="bar-value">$75K (4 jobs)</div></li><li class="bar-item"><div class="bar-name">PLMB Install Water Heater</div><div class="bar-bar"><div class="bar-fill" style="width:13%"></div></div><div class="bar-value">$67K (17 jobs)</div></li><li class="bar-item"><div class="bar-name">PLMB Repair</div><div class="bar-bar"><div class="bar-fill" style="width:12%"></div></div><div class="bar-value">$63K (244 jobs)</div></li><li class="bar-item"><div class="bar-name">HVAC Membership Visit Cooling</div><div class="bar-bar"><div class="bar-fill" style="width:9%"></div></div><div class="bar-value">$46K (372 jobs)</div></li><li class="bar-item"><div class="bar-name">ELEC Install Panel</div><div class="bar-bar"><div class="bar-fill" style="width:8%"></div></div><div class="bar-value">$42K (7 jobs)</div></li><li class="bar-item"><div class="bar-name">PLMB Repair Pipe Lining</div><div class="bar-bar"><div class="bar-fill" style="width:8%"></div></div><div class="bar-value">$39K (9 jobs)</div></li></ul></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-hdr"><div class="panel-title">Top technicians by revenue (current period)</div></div>
+    <div class="panel-body"><ul class="bar-list"><li class="bar-item"><div class="bar-name">KAMERON POTTER</div><div class="bar-bar"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">$118K (8 jobs)</div></li><li class="bar-item"><div class="bar-name">Jordan Butler</div><div class="bar-bar"><div class="bar-fill" style="width:59%"></div></div><div class="bar-value">$70K (5 jobs)</div></li><li class="bar-item"><div class="bar-name">(KY) Seth Neal</div><div class="bar-bar"><div class="bar-fill" style="width:51%"></div></div><div class="bar-value">$60K (4 jobs)</div></li><li class="bar-item"><div class="bar-name">(KY) Austin Weber</div><div class="bar-bar"><div class="bar-fill" style="width:51%"></div></div><div class="bar-value">$60K (5 jobs)</div></li><li class="bar-item"><div class="bar-name">Levi Moore</div><div class="bar-bar"><div class="bar-fill" style="width:44%"></div></div><div class="bar-value">$52K (9 jobs)</div></li><li class="bar-item"><div class="bar-name">Adam Fights</div><div class="bar-bar"><div class="bar-fill" style="width:33%"></div></div><div class="bar-value">$39K (4 jobs)</div></li><li class="bar-item"><div class="bar-name">(KY) JARED HINKLE</div><div class="bar-bar"><div class="bar-fill" style="width:31%"></div></div><div class="bar-value">$37K (28 jobs)</div></li><li class="bar-item"><div class="bar-name">Thomas Gallagher</div><div class="bar-bar"><div class="bar-fill" style="width:30%"></div></div><div class="bar-value">$35K (3 jobs)</div></li></ul></div>
+  </div>
+</div>
+
+<div class="footer" style="display:none" id="appFooter">
+  Powered by Legit Marketing Group &nbsp;|&nbsp; TurnPoint Brands HoldCo Operations &nbsp;|&nbsp; Refreshed June 15, 2026 from ServiceTitan multi-tenant export &nbsp;|&nbsp; Operational metrics only — see Tier-1 brands for full polish
+</div>
+
+<script>
+const HASH = 'f081395f';
+async function sha1(s) {
+  const buf = new TextEncoder().encode(s);
+  const hash = await crypto.subtle.digest('SHA-1', buf);
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('').slice(0,8);
+}
+async function tryUnlock() {
+  const pw = document.getElementById('pwInput').value;
+  const h = await sha1(pw);
+  if (h === HASH) {
+    document.getElementById('loginOverlay').style.display = 'none';
+    document.getElementById('appHeader').style.display = 'block';
+    document.getElementById('appBanner').style.display = 'block';
+    document.getElementById('appMain').style.display = 'block';
+    document.getElementById('appFooter').style.display = 'block';
+    sessionStorage.setItem('tp_unlocked', '1');
+  } else {
+    document.getElementById('pwErr').textContent = 'Incorrect password';
+  }
+}
+document.getElementById('pwBtn').addEventListener('click', tryUnlock);
+document.getElementById('pwInput').addEventListener('keypress', e => { if(e.key === 'Enter') tryUnlock(); });
+if (sessionStorage.getItem('tp_unlocked') === '1') {
+  document.getElementById('loginOverlay').style.display = 'none';
+  document.getElementById('appHeader').style.display = 'block';
+  document.getElementById('appBanner').style.display = 'block';
+  document.getElementById('appMain').style.display = 'block';
+  document.getElementById('appFooter').style.display = 'block';
+}
+</script>
+</body>
+</html>
