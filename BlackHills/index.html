@@ -3676,6 +3676,30 @@ img, svg, video, canvas { max-width: 100%; }
 .hdr-menu-btn span::before { top: -6px; }
 .hdr-menu-btn span::after  { top: 6px; }
 
+
+/* Brand logo replacement (replaces generic 'A' SVG monogram) */
+.login-mono img.brand-logo-img {
+  max-width: 64px;
+  max-height: 64px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding: 6px;
+  box-sizing: border-box;
+}
+.hdr-mono img.brand-logo-img {
+  max-width: 40px;
+  max-height: 40px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  background: #FFFFFF;
+  border-radius: 6px;
+  padding: 4px;
+  box-sizing: border-box;
+}
 </style>
 </head>
 <body>
@@ -3684,12 +3708,7 @@ img, svg, video, canvas { max-width: 100%; }
 <div id="loginOverlay" class="login-overlay">
   <div class="login-card">
     <div class="login-headbar">
-      <div class="login-mono">
-        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
-          <circle cx="32" cy="32" r="30" fill="#FFFFFF"/>
-          <path d="M22 44 L32 18 L42 44 M26 36 L38 36" stroke="#062B4F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        </svg>
-      </div>
+      <div class="login-mono"><img src="https://www.turnpointservices.com/wp-content/uploads/2022/12/black-hills-logo-print.jpg" alt="Black Hills Inc. logo" class="brand-logo-img" loading="eager"></div>
       <div class="login-titles">
         <div class="login-title-row">
           <div class="login-title">Black Hills Inc.</div>
@@ -3712,12 +3731,7 @@ img, svg, video, canvas { max-width: 100%; }
 <div class="app-header app-header-v2" id="appHeader" style="display:none;">
   <!-- LEFT: unified product lockup (Operations Report | P&L Review) -->
   <div class="hdr-brand">
-    <div class="hdr-mono">
-      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
-        <circle cx="32" cy="32" r="30" fill="#FFFFFF"/>
-        <path d="M22 44 L32 18 L42 44 M26 36 L38 36" stroke="#062B4F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      </svg>
-    </div>
+    <div class="hdr-mono"><img src="https://www.turnpointservices.com/wp-content/uploads/2022/12/black-hills-logo-print.jpg" alt="Black Hills Inc. logo" class="brand-logo-img" loading="eager"></div>
     <div class="hdr-titles">
       <div class="hdr-title-row">
         <div class="hdr-title">Black Hills Inc.</div>
