@@ -84,7 +84,8 @@ jobs:
             | python3 -c "import sys,json; r=json.load(sys.stdin); a=[x for x in r['assets'] if x['name'].endswith('.tar.gz')][0]; print(a['url'])" \
             | xargs -I{} curl -sL -H "Authorization: token ${{ secrets.BOOTSTRAP_DOWNLOAD_TOKEN || secrets.GITHUB_TOKEN }}" -H "Accept: application/octet-stream" -o turnpoint_bootstrap.tar.gz "{}"
           ls -la turnpoint_bootstrap.tar.gz
-          tar xzf turnpoint_bootstrap.tar.gz
+          # Extract everything EXCEPT pipeline/ (repo's pipeline/ has the patched daily_ingest_multitenant.py)
+          tar xzf turnpoint_bootstrap.tar.gz --exclude='pipeline' --exclude='pipeline/*'
           rm turnpoint_bootstrap.tar.gz
           echo "Bootstrap restored. tenants/ count:"
           ls tenants/ | wc -l
