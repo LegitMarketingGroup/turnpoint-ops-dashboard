@@ -277,6 +277,8 @@ def snapshot_last_data_day(registry):
 def step_freshness_check(registry, prev_snapshot):
     if os.environ.get('SKIP_FRESHNESS_CHECK','').strip().lower() in ('1','true','yes'):
         log('SKIP_FRESHNESS_CHECK=1 - bypassing.', level='WARN'); return
+    if os.environ.get('FORCE_REEMBED','').strip().lower() in ('1','true','yes'):
+        log('FORCE_REEMBED=true - bypassing freshness check.', level='WARN'); return
     advanced = 0; total = 0
     for t in registry:
         tid = t['tenant_id']; slug = t['url_slug']
